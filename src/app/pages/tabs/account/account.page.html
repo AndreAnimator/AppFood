@@ -23,12 +23,13 @@
       <h5>Gerenciar Endereços</h5>
     </ion-item>
   </ion-list>
-  <ion-list>
+  <app-loading-order *ngIf="isLoading"></app-loading-order>
+  <ion-list *ngIf="!isLoading">
     <ion-list-header>
       <ion-label color="primary">Últimos Pedidos</ion-label>
     </ion-list-header>
-    <ion-item-group>
-      <ion-item lines="none">
+    <ion-item-group *ngIf="orders?.length > 0">
+      <!--<ion-item lines="none">
         <ion-label>
           <h4>Dom Henrique</h4>
           <p>Guarapuava, Paraná</p>
@@ -64,6 +65,11 @@
           </ion-row>
         </ion-label>
       </ion-item>
+      !-->
+      <app-order *ngFor="let order of orders" [order]="order"></app-order>
+    </ion-item-group>
+    <ion-item-group *ngIf="orders?.length < 1">
+      <app-empty-order [model]="model"></app-empty-order><!--Podia só ter reaproveitado o empty screen que já existia né-->
     </ion-item-group>
   </ion-list>
 </ion-content>
